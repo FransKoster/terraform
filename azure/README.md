@@ -72,7 +72,7 @@ azure/
     └── production_env.sh
 
 ```
-### Example of `development_env.sh`
+### Example of `test_env.sh`
 This file is sourced by the scripts.
 ```
 export RESOURCE_GROUP="tfstorage"
@@ -84,3 +84,18 @@ export SERVICE_PRINCIPAL_PASSWORD="<app_secret>"
 export TENANT_ID="<tenant_id>"
 export SUBSCRIPTION_ID="<subscrition_id>"
 ```
+
+### Create ServicePrincipal
+Create the ServicePrinciple that authenticates Terraform to Azure. We do this using the command line.
+`create_sp.sh`
+
+```bash
+# Variables
+source ./test_env.sh
+
+...
+
+az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME --role Contributor --scopes /subscriptions/$SUBSCRIPTION_ID
+
+```
+Take note of the app_id and app_secret and add these to the `_env.sh`

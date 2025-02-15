@@ -12,10 +12,7 @@ fi
 # Check if already logged in to Azure
 if ! az account show &> /dev/null; then
   echo "Not logged into Azure. Logging in..."
-  az login --service-principal \
-    --username "$SERVICE_PRINCIPAL_APP_ID" \
-    --password "$SERVICE_PRINCIPAL_PASSWORD" \
-    --tenant "$TENANT_ID"
+  az login
 else
   echo "Already logged into Azure."
 fi
