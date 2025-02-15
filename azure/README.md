@@ -73,6 +73,7 @@ az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME --role Contributor --sco
 
 ```
 Take note of the app_id and app_secret and add these to the `_env.sh`
+Further usage of a service principle is [here](https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure-with-service-principle?tabs=bash#specify-service-principal-credentials)
 
 ### Create storage accounts
 Now we hava a ServicePrincipal we can create the storage accounts for the Terraform state. Change the `create_storage.sh` to use the correct env.sh file, like `test-environment.sh`. Now run `./create_storage.sh` to create the account in the test subscription.

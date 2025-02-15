@@ -12,8 +12,8 @@ terraform {
   }
   backend "azurerm" {
     resource_group_name  = "tf-storage"
-    storage_account_name = "storagetftst001" # Must be unique
-    container_name       = "test-state"
+    storage_account_name = "storagetfacc001"
+    container_name       = "acc-state"
     key                  = "terraform.tfstate"
   }
 }

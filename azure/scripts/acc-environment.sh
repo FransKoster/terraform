@@ -1,0 +1,9 @@
+export RESOURCE_GROUP="tf-storage"
+export LOCATION="westeurope"
+export STORAGE_ACCOUNT="storagetfacc001" # Must be unique
+export CONTAINER_NAME="acc-state"
+export SERVICE_PRINCIPAL_NAME="sp_tf_acc"
+export SERVICE_PRINCIPAL_APP_ID="<>"
+export SERVICE_PRINCIPAL_PASSWORD="<>"
+export TENANT_ID="<>"
+export SUBSCRIPTION_ID="<>"
