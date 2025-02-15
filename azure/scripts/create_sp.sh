@@ -12,7 +12,7 @@ fi
 # Check if already logged in to Azure
 if ! az account show &> /dev/null; then
   echo "Not logged into Azure. Logging in..."
-  az login
+  az login  --tenant "$TENANT_ID"
 else
   echo "Already logged into Azure."
 fi

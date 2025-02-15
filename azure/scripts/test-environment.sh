@@ -1,7 +1,7 @@
 export RESOURCE_GROUP="tf-storage"
 export LOCATION="westeurope"
 export STORAGE_ACCOUNT="storagetftst001"
-export CONTAINER_NAME="tfstate"
+export CONTAINER_NAME="test-state"
 export SERVICE_PRINCIPAL_NAME="sp_tf_tst"
 export SERVICE_PRINCIPAL_APP_ID="<>"
 export SERVICE_PRINCIPAL_PASSWORD="<>"

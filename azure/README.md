@@ -6,32 +6,6 @@ The idea is to separate the terraform state for different environments to avoid 
 ## Configure Backend for each environment
 For each environment we specify a different backend configuration. Below, we will define the backend configuration for two environments: `development` and `production`. In this case we use a single storage account with separate containers for production and development.
 
-#### Example Backend Configuration for `development`:
-
-```hcl
-terraform {
-  backend "azurerm" {
-    resource_group_name   = "terraform-backend-rg"
-    storage_account_name  = "tfstate"
-    container_name        = "development-state"
-    key                   = "dev/terraform.tfstate"  # File path for development state file
-  }
-}
-```
-
-#### Example Backend Configuration for `production`:
-
-```hcl
-terraform {
-  backend "azurerm" {
-    resource_group_name   = "terraform-backend-rg"
-    storage_account_name  = "tfstate"
-    container_name        = "production-state"
-    key                   = "prod/terraform.tfstate"  # File path for production state file
-  }
-}
-```
-
 ## Create Azure storage account per subscription
 In this example we use seperate storage accounts for differtent subsriptions.
 Prerequisite:
@@ -67,12 +41,12 @@ azure/
     ├── create_storage.sh       # create storageaccount
     ├── 
     ├── development_env.sh      # Environment variables to source
-    ├── test_env.sh
+    ├── test-environment.sh
     ├── acceptance_env.sh
     └── production_env.sh
 
 ```
-### Example of `test_env.sh`
+### Example of `test-environment.sh`
 This file is sourced by the scripts.
 ```
 export RESOURCE_GROUP="tfstorage"
@@ -91,7 +65,7 @@ Create the ServicePrinciple that authenticates Terraform to Azure. We do this us
 
 ```bash
 # Variables
-source ./test_env.sh
+source ./test-environment.sh
 
 ...
 
@@ -99,3 +73,32 @@ az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME --role Contributor --sco
 
 ```
 Take note of the app_id and app_secret and add these to the `_env.sh`
+
+### Create storage accounts
+Now we hava a ServicePrincipal we can create the storage accounts for the Terraform state. Change the `create_storage.sh` to use the correct env.sh file, like `test-environment.sh`. Now run `./create_storage.sh` to create the account in the test subscription.
+
+#### Example Backend Configuration for `development`:
+
+```hcl
+terraform {
+  backend "azurerm" {
+    resource_group_name   = "tf-storage"
+    storage_account_name  = "tfstate"
+    container_name        = "development-state"
+    key                   = "terraform.tfstate"  # File path for development state file
+  }
+}
+```
+
+#### Example Backend Configuration for `production`:
+
+```hcl
+terraform {
+  backend "azurerm" {
+    resource_group_name   = "tf-storage"
+    storage_account_name  = "tfstate"
+    container_name        = "production-state"
+    key                   = "terraform.tfstate"  # File path for production state file
+  }
+}
+```
